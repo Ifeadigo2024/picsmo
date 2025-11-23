@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Your Name — Video Editor</title>
+  <meta name="description" content="Portfolio of a professional video editor — showreel, projects, services and contact." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#94a3b8;
+      --accent1:#6ee7b7;
+      --accent2:#60a5fa;
+      --glass: rgba(255,255,255,0.04);
+      --max-width:1100px;
+      --radius:14px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: linear-gradient(180deg, #071025 0%, #071022 40%), var(--bg);
+      color:#e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding:32px 20px;
+      display:flex;
+      justify-content:center;
+    }
+    .container{width:100%;max-width:var(--max-width);}
+
+    /* Header */
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+    .brand{display:flex;gap:14px;align-items:center}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#021124}
+    .brand h1{font-size:18px;margin:0}
+    .brand p{font-size:12px;margin:0;color:var(--muted)}
+    nav a{color:var(--muted);text-decoration:none;margin-left:18px;font-size:14px}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;margin-bottom:28px}
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:26px;border-radius:var(--radius);box-shadow:0 6px 30px rgba(2,6,23,0.6);}
+    .headline{font-size:28px;margin:0 0 10px 0}
+    .sub{color:var(--muted);margin:0 0 18px 0}
+    .cta{display:flex;gap:12px}
+    .btn{padding:10px 16px;border-radius:10px;border:0;background:var(--accent2);color:#021124;font-weight:600;cursor:pointer}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .hero-media{border-radius:12px;overflow:hidden;box-shadow:0 8px 40px rgba(2,6,23,0.6)}
+    .hero-media video{width:100%;height:100%;display:block}
+
+    /* Sections */
+    section{margin-bottom:28px}
+    h2{margin:0 0 12px 0;font-size:18px}
+    p.lead{color:var(--muted);margin:0 0 16px 0}
+
+    /* Projects grid */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .card{background:var(--card);padding:0;border-radius:12px;overflow:hidden;cursor:pointer;transition:transform .18s ease, box-shadow .18s ease}
+    .card:hover{transform:translateY(-6px);box-shadow:0 18px 60px rgba(2,6,23,0.6)}
+    .thumb{position:relative;padding-top:56.25%;background:#000}
+    .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .card-content{padding:12px}
+    .meta{font-size:13px;color:var(--muted);margin-bottom:6px}
+    .title{font-weight:600;margin:0}
+
+    /* Services */
+    .services{display:flex;gap:12px;flex-wrap:wrap}
+    .service{background:var(--glass);padding:12px;border-radius:10px;min-width:160px}
+    .service h4{margin:0 0 6px 0}
+
+    /* Testimonials */
+    .testimonials{display:flex;gap:12px;overflow:auto}
+    .quote{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:16px;border-radius:12px;min-width:220px}
+
+    /* Contact */
+    .contact-grid{display:grid;grid-template-columns:1fr 320px;gap:16px}
+    label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+    input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+    textarea{min-height:120px}
+    .muted-small{font-size:13px;color:var(--muted)}
+
+    /* Footer */
+    footer{color:var(--muted);font-size:13px;text-align:center;margin-top:28px}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;padding:20px;z-index:90;visibility:hidden;opacity:0;transition:opacity .18s ease, visibility .18s}
+    .modal.open{visibility:visible;opacity:1}
+    .modal-card{width:100%;max-width:960px;background:#021124;border-radius:12px;overflow:hidden}
+    .modal-card .iframe-wrap{position:relative;padding-top:56.25%;background:#000}
+    .modal-card iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+    .modal-close{position:absolute;right:12px;top:12px;background:rgba(255,255,255,0.06);border-radius:10px;padding:8px;cursor:pointer}
+
+    /* Responsive */
+    @media (max-width:1024px){
+      .hero{grid-template-columns:1fr 1fr}
+      .grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:720px){
+      .hero{grid-template-columns:1fr;}
+      .contact-grid{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr}
+      nav{display:none}
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">
+            <img src="./assets/picsmo.svg" height="50px" alt="">
+        </div>
+        <div>
+          <h1>picsmo</h1>
+          <p>Video Editor • Motion design • Colorist</p>
+        </div>
+      </div>
+      <nav>
+        <a href="#projects">Work</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-card">
+          <h2 class="headline">We turn raw footage into clean, punchy stories.</h2>
+          <p class="sub">Showreel, ads, social cuts, color grading. I help creators and brands get scroll-stopping videos.</p>
+          <div class="cta">
+            <button class="btn" id="playShowreel">Play Showreel</button>
+            <a class="btn secondary" href="#contact">Hire me</a>
+          </div>
+
+          <div style="margin-top:18px;display:flex;gap:10px;align-items:center">
+            <div class="muted-small">Tools</div>
+            <div style="display:flex;gap:8px;margin-left:6px;color:var(--muted);font-size:13px">Premiere • After Effects • DaVinci</div>
+          </div>
+        </div>
+
+        <div class="hero-media">
+          <!-- Short loop placeholder. Replace src with your loop.mp4 -->
+          <video autoplay muted loop playsinline>
+            <source src="" type="video/mp4">
+            <!-- If you don't have a local loop, we show a static fallback -->
+            <div style="padding:28px;text-align:center;color:var(--muted)">Insert your hero loop video at the top of the file or keep an image.</div>
+          </video>
+        </div>
+      </section>
+
+      <section id="projects">
+        <h2>Featured Projects</h2>
+        <p class="lead">Selected edits — click any project to preview the full video.</p>
+
+        <div class="grid" id="projectsGrid">
+          <!-- Project cards inserted by JS -->
+        </div>
+      </section>
+
+      <section id="services">
+        <h2>Services</h2>
+        <p class="lead">Short-term, fast turnaround services for creators and brands.</p>
+        <div class="services">
+          <div class="service"><h4>Video Editing</h4><div class="muted-small">Long-form & short-form editing</div></div>
+          <div class="service"><h4>Motion Graphics</h4><div class="muted-small">Lower-thirds, intros, transitions</div></div>
+          <div class="service"><h4>Color Grading</h4><div class="muted-small">Log workflows, cinematic looks</div></div>
+          <div class="service"><h4>Social Cuts</h4><div class="muted-small">TikTok, Reels, Shorts-optimized</div></div>
+        </div>
+      </section>
+
+      <section id="testimonials">
+        <h2>Testimonials</h2>
+        <div class="testimonials">
+          <div class="quote">
+            <strong>"Super fast and delivered beyond expectations."</strong>
+            <div class="muted-small">— Alex, Filmmaker</div>
+          </div>
+          <div class="quote">
+            <strong>"Perfect pacing and mood — elevated our campaign."</strong>
+            <div class="muted-small">— Nadia, Brand Manager</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <h2>Contact</h2>
+        <p class="lead">Tell me about your project — I reply within 24–48 hours.</p>
+        <div class="contact-grid">
+          <form id="contactForm" class="hero-card">
+            <label for="name">Name</label>
+            <input id="name" name="name" required />
+
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required />
+
+            <label for="message">Project details</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <div style="display:flex;gap:10px;margin-top:10px;align-items:center">
+              <button class="btn" type="submit">Send Message</button>
+              <a class="btn secondary" href="mailto:youremail@example.com">Email</a>
+              <a class="btn secondary" href="https://wa.me/2340000000000" target="_blank">WhatsApp</a>
+            </div>
+          </form>
+
+          <div class="hero-card">
+            <h3>Availability</h3>
+            <p class="muted-small">Open for freelance & remote work. Rates depend on project scope. Mention deadlines and deliverables.</p>
+
+            <h3 style="margin-top:12px">Quick Links</h3>
+            <div class="muted-small">
+              <div>Full showreel — <a href="#" id="showreelLink">Watch</a></div>
+              <div>Download CV — <a href="#">PDF</a></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      © <span id="year"></span> Your Name • Video Editor
+    </footer>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-card">
+      <button class="modal-close" id="closeModal">✕</button>
+      <div class="iframe-wrap">
+        <iframe id="modalFrame" src="" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Projects data — replace thumbnails and urls with your own
+    const projects = [
+      {id:1,title:'Music Video — "Lost in Sound"',category:'Music video',thumb:'https://picsum.photos/seed/p1/800/450',url:'https://www.youtube.com/embed/ScMzIvxBSi4'},
+      {id:2,title:'Product Promo — Urban Shoes',category:'Ad',thumb:'https://picsum.photos/seed/p2/800/450',url:'https://www.youtube.com/embed/tgbNymZ7vqY'},
+      {id:3,title:'YouTube Series — Episode 04',category:'YouTube',thumb:'https://picsum.photos/seed/p3/800/450',url:'https://www.youtube.com/embed/9bZkp7q19f0'},
+      {id:4,title:'Event Highlight — Wedding',category:'Event',thumb:'https://picsum.photos/seed/p4/800/450',url:'https://www.youtube.com/embed/dQw4w9WgXcQ'},
+      {id:5,title:'Social Cuts — 6x Reels',category:'Social',thumb:'https://picsum.photos/seed/p5/800/450',url:'https://www.youtube.com/embed/ScMzIvxBSi4'},
+      {id:6,title:'Short Film — "After Hours"',category:'Short film',thumb:'https://picsum.photos/seed/p6/800/450',url:'https://www.youtube.com/embed/tgbNymZ7vqY'}
+    ];
+
+    const grid = document.getElementById('projectsGrid');
+    projects.forEach(p=>{
+      const el = document.createElement('div');
+      el.className = 'card';
+      el.tabIndex = 0;
+      el.innerHTML = `
+        <div class="thumb"><img src="${p.thumb}" alt="${p.title}"></div>
+        <div class="card-content">
+          <div class="meta">${p.category}</div>
+          <h3 class="title">${p.title}</h3>
+        </div>
+      `;
+      el.addEventListener('click', ()=>openModal(p.url));
+      el.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') openModal(p.url); });
+      grid.appendChild(el);
+    });
+
+    // Modal
+    const modal = document.getElementById('modal');
+    const frame = document.getElementById('modalFrame');
+    const closeModalBtn = document.getElementById('closeModal');
+    function openModal(url){
+      frame.src = url + '?autoplay=1';
+      modal.classList.add('open');
+    }
+    function closeModal(){
+      modal.classList.remove('open');
+      // stop video
+      frame.src = '';
+    }
+    closeModalBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+
+    // Showreel button
+    document.getElementById('playShowreel').addEventListener('click', ()=>{
+      // link to your main showreel
+      openModal('https://www.youtube.com/embed/ScMzIvxBSi4');
+    });
+    document.getElementById('showreelLink').addEventListener('click',(e)=>{e.preventDefault();openModal('https://www.youtube.com/embed/ScMzIvxBSi4')});
+
+    // Contact form (no backend) — basic validation and mailto fallback
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const message = form.message.value.trim();
+      if(!name||!email||!message){alert('Please complete all fields.');return}
+      // Create a mailto link so user can send via their email client
+      const subject = encodeURIComponent('Project enquiry from '+name);
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+      window.location.href = `mailto:youremail@example.com?subject=${subject}&body=${body}`;
+    });
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+  </script>
+</body>
+</html>
